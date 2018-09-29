@@ -14,37 +14,34 @@ set nocompatible
 
 " ------ General Configuration ------ "
 let mapleader = ","
-set ai						" Keep indentation from previous line
-set hlsearch				" Highlight search results
-set nu						" Display line numbers
-set sb						" Split below
-set spr						" Split right
-set sw=4					" Number of spaces to use for indent
-set ts=4					" Number of spaces tab will count for
-set mouse=a					" Mouse support
-set clipboard+=unnamedplus  " neovim copy support
+set ai                       " Keep indentation from previous line
+set background=dark          " Background color
+set hlsearch                 " Highlight search results
+set nu                       " Display line numbers
+set sb                       " Split below
+set spr                      " Split right
+set sw=4                     " Number of spaces to use for indent
+set ts=4                     " Number of spaces tab will count for
+set mouse=a                  " Mouse support
+set clipboard+=unnamedplus   " Neovim copy support
+set list lcs=tab:»\ ,trail:· " Display whitespace
 
 " ------ Custom Mapping ------ "
-nnoremap <C-]> :bn<CR>
-nnoremap <C-[> :bp<CR>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-nnoremap <leader>q :bp<CR>:bd#<CR> " Quit current buffer, go to previous
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-]> :bn<CR>
+nnoremap <C-[> :bp<CR>
+vmap <TAB> >gv
+vmap <S-TAB> <gv
 
 " ------ ale --------- "
 let g:ale_linters = {
 \   'go': ['go vet', 'golint', 'go build'],
-\   'proto': ['prototool'],
 \}
 let g:ale_lint_on_text_changed = 'never'
-
-" ----- prototool ---- "
-let g:prototool_format_enable = 1
-let g:ale_proto_prototool_command = 'compile'
-nnoremap <leader>f :call PrototoolFormatToggle()<CR>
-" call PrototoolFormatEnable()
 
 " ------ vim-go ------ "
 let g:go_fmt_command = "goimports"
@@ -79,19 +76,6 @@ let NERDTreeShowHidden = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeChDirMode = 0
 let NERDTreeIgnore = ['\.git$[[dir]]', '\.pyc$']
-"https://gist.github.com/avesus/1954d9384d86cc1e39cb2b2eff7017b7
-function! g:NERDTreeSync()
-  if g:NERDTree.IsOpen() && &modifiable && @% != "" && !isdirectory(@%)
-	let g:curnerdtreewnum = winnr()
-	exec "NERDTreeFind"
-	exec "normal! zz"
-	exec "set winfixwidth"
-	exec g:curnerdtreewnum . "wincmd w"
-	exec g:curnerdtreewnum . "wincmd ="
-  endif
-endfunction
-" Shows NERDTree on start and synchronizes the tree with opened file when switching between opened windows
-autocmd BufEnter * call g:NERDTreeSync()
 
 function! g:NERDTreeCustomToggle()
 	let g:curnerdtreetogglewnum = winnr()
@@ -112,4 +96,4 @@ function! g:NERDTreeCustomToggle()
 endfunction
 
 " ------ Custom Color Mapping (papercolor)  ------ "
-colorscheme Monokai
+colorscheme hybrid
