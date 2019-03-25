@@ -7,7 +7,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'w0rp/ale'
-Plug 'uber/prototool', { 'rtp':'vim/prototool', 'branch':'dev' }
 call plug#end()
 
 set nocompatible
@@ -17,13 +16,14 @@ let mapleader = ","
 set ai                       " Keep indentation from previous line
 set background=dark          " Background color
 set hlsearch                 " Highlight search results
+set incsearch                " Highlight while searching
+set expandtab                " Don't use actual tab characers
 set nu                       " Display line numbers
 set sb                       " Split below
 set spr                      " Split right
 set sw=4                     " Number of spaces to use for indent
 set ts=4                     " Number of spaces tab will count for
 set mouse=a                  " Mouse support
-set clipboard+=unnamedplus   " Neovim copy support
 set list lcs=tab:»\ ,trail:· " Display whitespace
 
 " ------ Custom Mapping ------ "
@@ -32,10 +32,19 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-H> <C-W><C-H>
-nnoremap <C-]> :bn<CR>
-nnoremap <C-[> :bp<CR>
 vmap <TAB> >gv
 vmap <S-TAB> <gv
+imap jj <Esc>
+
+" Yank and paste operations preceded by <leader> should use system clipboard.
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+yg_
+vnoremap <leader>y "+y
+
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " ------ ale --------- "
 let g:ale_linters = {
