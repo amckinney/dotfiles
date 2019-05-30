@@ -31,10 +31,10 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-nnoremap <C-H> <C-W><C-H>
 vmap <TAB> >gv
 vmap <S-TAB> <gv
 imap jj <Esc>
+imap ok <C-x><C-o>
 
 " Yank and paste operations preceded by <leader> should use system clipboard.
 nnoremap <leader>y "+y
@@ -56,12 +56,14 @@ let g:ale_lint_on_text_changed = 'never'
 let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
 let g:go_highlight_generate_tags = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
-
 let g:go_highlight_space_tab_error = 0
 let g:go_highlight_trailing_whitespace_error = 0
 
