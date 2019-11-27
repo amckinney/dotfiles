@@ -13,18 +13,20 @@ set nocompatible
 
 " ------ General Configuration ------ "
 let mapleader = ","
-set ai                       " Keep indentation from previous line
-set background=dark          " Background color
-set hlsearch                 " Highlight search results
-set incsearch                " Highlight while searching
-set expandtab                " Don't use actual tab characers
-set nu                       " Display line numbers
-set sb                       " Split below
-set spr                      " Split right
-set sw=4                     " Number of spaces to use for indent
-set ts=4                     " Number of spaces tab will count for
-set mouse=a                  " Mouse support
-set list lcs=tab:»\ ,trail:· " Display whitespace
+set ai                         " Keep indentation from previous line
+set background=dark            " Background color
+set hlsearch                   " Highlight search results
+set incsearch                  " Highlight while searching
+set expandtab                  " Don't use actual tab characers
+set nu                         " Display line numbers
+set sb                         " Split below
+set spr                        " Split right
+set sw=4                       " Number of spaces to use for indent
+set ts=4                       " Number of spaces tab will count for
+set mouse=a                    " Mouse support
+set list lcs=tab:»\ ,trail:·   " Display whitespace
+set clipboard=unnamed          " Copy to the system clipboard by default
+set backspace=indent,eol,start " Configure backspace
 
 " ------ Custom Mapping ------ "
 nnoremap <C-J> <C-W><C-J>
@@ -34,7 +36,7 @@ nnoremap <C-H> <C-W><C-H>
 vmap <TAB> >gv
 vmap <S-TAB> <gv
 imap jj <Esc>
-imap ok <C-x><C-o>
+imap kk <C-x><C-o>
 
 " Yank and paste operations preceded by <leader> should use system clipboard.
 nnoremap <leader>y "+y
