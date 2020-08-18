@@ -1,4 +1,6 @@
 call plug#begin('~/.vim/plugged')
+Plug 'bufbuild/vim-buf'
+Plug 'dense-analysis/ale'
 Plug 'fatih/vim-go'
 Plug 'fholgado/minibufexpl.vim'
 Plug 'flazz/vim-colorschemes'
@@ -6,7 +8,16 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'w0rp/ale'
+
+" Deoplete requires special installation for non-neovim setups.
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 call plug#end()
 
 set nocompatible
@@ -27,6 +38,7 @@ set mouse=a                    " Mouse support
 set list lcs=tab:»\ ,trail:·   " Display whitespace
 set clipboard=unnamed          " Copy to the system clipboard by default
 set backspace=indent,eol,start " Configure backspace
+set updatetime=100             " Time to update the status line (ms)
 
 " ------ Custom Mapping ------ "
 nnoremap <C-J> <C-W><C-J>
@@ -51,8 +63,10 @@ vnoremap <leader>P "+P
 " ------ ale --------- "
 let g:ale_linters = {
 \   'go': ['go vet', 'golint', 'go build'],
+\   'proto': ['buf-check-lint'],
 \}
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters_explicit = 1
 
 " ------ vim-go ------ "
 let g:go_fmt_command = "goimports"
@@ -61,6 +75,7 @@ let g:go_fmt_fail_silently = 1
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 
+let g:go_auto_type_info = 1
 let g:go_highlight_generate_tags = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_fields = 1
