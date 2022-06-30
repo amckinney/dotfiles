@@ -1,5 +1,4 @@
 call plug#begin('~/.vim/plugged')
-Plug 'bufbuild/vim-buf'
 Plug 'dense-analysis/ale'
 Plug 'fatih/vim-go'
 Plug 'fholgado/minibufexpl.vim'
@@ -63,10 +62,15 @@ vnoremap <leader>P "+P
 " ------ ale --------- "
 let g:ale_linters = {
 \   'go': ['go vet', 'golint', 'go build'],
-\   'proto': ['buf-check-lint'],
+\   'proto': ['buf-lint'],
 \}
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters_explicit = 1
+
+let g:ale_fixers = {
+\   'proto': ['buf-format'],
+\}
+let g:ale_fix_on_save = 1
 
 " ------ vim-go ------ "
 let g:go_fmt_command = "goimports"
