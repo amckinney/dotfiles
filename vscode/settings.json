@@ -1,0 +1,39 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": [
+    "source.fixAll",
+    "source.organizeImports",
+    "source.sortMembers"
+  ],
+  "explorer.confirmDelete": false,
+  "git.openRepositoryInParentFolders": "never",
+  "terminal.integrated.profiles.osx": {
+    "bash5": {
+      "path": "/opt/homebrew/bin/bash"
+    }
+  },
+  "terminal.integrated.defaultProfile.osx": "bash5",
+  "vim.vimrc.enable": true,
+  "vim.vimrc.path": "~/.vimrc",
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "cursor.cpp.disabledLanguages": [
+    "plaintext",
+    "markdown",
+    "scminput"
+  ],
+  "workbench.colorTheme": "Default Dark Modern",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "search.followSymlinks": false,
+  "go.buildTags": "integration",
+  "extensions.autoCheckUpdates": false,
+  "workbench.settings.enableNaturalLanguageSearch": false,
+  "typescript.updateImportsOnFileMove.enabled": "never"
+}
