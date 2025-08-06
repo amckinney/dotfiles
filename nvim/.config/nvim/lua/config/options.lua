@@ -30,8 +30,5 @@ opt.listchars = "tab:» ,trail:·"
 opt.termguicolors = true
 opt.background = "dark"
 
--- Colorscheme and highlights
-vim.cmd("colorscheme habamax")  -- Change to hybrid if available
+-- Search highlights
 vim.cmd("hi Search ctermbg=LightYellow")
-vim.cmd("hi htmlBold gui=bold guifg=#af0000 ctermfg=124")
-vim.cmd("hi htmlItalic gui=italic guifg=#ff8700 ctermfg=214")

@@ -4,10 +4,9 @@ local autocmd = vim.api.nvim_create_autocmd
 -- Example: Add your general autocommands here
 -- These are autocommands that don't depend on specific plugins
 
--- Example: Highlight yanked text
-autocmd("TextYankPost", {
-  desc = "Highlight yanked text",
+-- Disable yank highlighting
+vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
-    vim.highlight.on_yank({ timeout = 200 })
+    -- Do nothing or clear highlights
   end,
 })
