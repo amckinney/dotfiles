@@ -61,7 +61,7 @@ require("lazy").setup({
             padding = " ",
             symlink_arrow = " ➛ ",
             show = {
-              file = false,  -- Disable file icons
+              file = true,
               folder = true,
               folder_arrow = true,
               git = false,
@@ -71,14 +71,14 @@ require("lazy").setup({
               symlink = "",
               bookmark = "",
               folder = {
-                arrow_closed = "+",  -- Simple ASCII characters
-                arrow_open = "-",
-                default = "[+]",     -- Closed folder
-                open = "[-]",        -- Open folder
-                empty = "[+]",       -- Empty closed folder
-                empty_open = "[-]",  -- Empty open folder
-                symlink = "",
-                symlink_open = "",
+                arrow_closed = "▶",
+                arrow_open = "▼",
+                default = "📁",
+                open = "📂",
+                empty = "📁",
+                empty_open = "📂",
+                symlink = "📁",
+                symlink_open = "📂",
               },
               git = {
                 unstaged = "✗",
@@ -176,6 +176,76 @@ require("lazy").setup({
           },
         },
       })
+    end,
+  },
+
+  -- Terminal toggle
+  {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    config = function()
+      require("toggleterm").setup({
+        size = 15,
+        open_mapping = [[<C-t>]], 
+        hide_numbers = true,
+        shade_terminals = true,
+        start_in_insert = true,
+        insert_mappings = true,
+        persist_size = true,
+        direction = 'horizontal',
+        close_on_exit = true,
+        shell = vim.o.shell,
+        -- Hide the terminal buffer name
+        winbar = {
+          enabled = false,
+        },
+        -- Custom terminal window navigation
+        on_create = function(term)
+          local opts = {buffer = term.bufnr}
+          vim.keymap.set('t', '<C-k>', [[<C-\><C-n><C-w>k]], opts)
+          vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-w>j]], opts)
+          vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]], opts)
+          vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-w>l]], opts)
+          -- Make : exit terminal mode and enter command mode
+          vim.keymap.set('t', ':', [[<C-\><C-n>:]], opts)
+          -- Toggle nvim-tree from terminal mode (assuming you use <leader>e)
+          vim.keymap.set('t', '<C-n>', [[<C-\><C-n><cmd>NvimTreeToggle<CR>]], opts)
+        end,
+      })
+
+      -- Auto-open terminal only when opening nvim without arguments
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          -- Only open terminal if no files were specified
+          if #vim.fn.argv() == 0 then
+            vim.defer_fn(function()
+              require("toggleterm").toggle()
+              -- Focus back to the main window and ensure normal mode
+              vim.cmd("wincmd k")
+              vim.cmd("stopinsert") -- Ensure we're in normal mode
+            end, 100)
+          end
+        end,
+      })
+
+      -- Properly handle entering insert mode in terminal
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = "term://*",
+        callback = function()
+          vim.defer_fn(function()
+            if vim.api.nvim_buf_get_option(0, 'buftype') == 'terminal' then
+              vim.cmd('normal! G') -- Go to last line
+              vim.cmd('startinsert') -- Enter insert mode at cursor position
+            end
+          end, 50)
+        end,
+      })
+
+      -- Make sure navigation works in normal mode too
+      vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Window up' })
+      vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Window down' })
+      vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Window left' })
+      vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Window right' })
     end,
   },
 

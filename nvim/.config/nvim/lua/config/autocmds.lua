@@ -10,3 +10,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     -- Do nothing or clear highlights
   end,
 })
+
+-- Hide terminal buffer names in statusline
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.laststatus = 0
+  end,
+})
