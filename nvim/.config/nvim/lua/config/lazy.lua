@@ -258,9 +258,27 @@ require("lazy").setup({
     config = function()
       require("telescope").setup({
         defaults = {
-          file_ignore_patterns = { "node_modules", ".git/" },
+          file_ignore_patterns = { 
+            "node_modules/.*", 
+            "%.git/.*",
+            "%.DS_Store"
+          },
+          -- Make sure it searches from project root
+          find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
         },
+        pickers = {
+          find_files = {
+            -- Show hidden files but ignore .git
+            hidden = true,
+            -- Search from project root, not just current directory
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+          }
+        }
       })
+
+      -- Add keymappings
+      local builtin = require('telescope.builtin')
+      vim.keymap.set('n', '<C-r>', builtin.find_files, { desc = 'Find files' })
     end,
   },
 
